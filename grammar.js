@@ -89,6 +89,7 @@ module.exports = grammar({
     expr: ($) =>
       choice(
         $.expr_literal,
+        $.expr_group,
         $.expr_identifier,
         $.expr_array,
         $.expr_object,
@@ -112,6 +113,8 @@ module.exports = grammar({
 
     null: () => "null",
 
+    expr_group: ($) => seq("(", $.expr, ")"),
+
     expr_identifier: () => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
     expr_array: ($) => seq("[", commaSep($.expr), "]"),
@@ -133,17 +136,17 @@ module.exports = grammar({
 
     expr_binary: ($) => {
       const table = [
-        [prec.left, PREC.OR, "or"],
-        [prec.left, PREC.AND, "and"],
-        [prec.left, PREC.EQUALITY, choice("==", "!=")],
-        [prec.left, PREC.COMPARISON, choice(">=", "<=", "<", ">")],
-        [prec.left, PREC.RANGE, "to"],
-        [prec.left, PREC.TERM, choice("+", "-", "%")],
-        [prec.left, PREC.FACTOR, choice("*", "/")],
+        [PREC.OR, "or"],
+        [PREC.AND, "and"],
+        [PREC.EQUALITY, choice("==", "!=")],
+        [PREC.COMPARISON, choice(">=", "<=", "<", ">")],
+        [PREC.RANGE, "to"],
+        [PREC.TERM, choice("+", "-", "%")],
+        [PREC.FACTOR, choice("*", "/")],
       ];
       return choice(
-        ...table.map(([precFn, precVal, op]) =>
-          precFn(
+        ...table.map(([precVal, op]) =>
+          prec.left(
             precVal,
             seq(
               field("lhs", $.expr),

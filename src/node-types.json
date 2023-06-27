@@ -68,6 +68,10 @@
           "named": true
         },
         {
+          "type": "expr_group",
+          "named": true
+        },
+        {
           "type": "expr_identifier",
           "named": true
         },
@@ -271,6 +275,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "expr_group",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expr",
+          "named": true
+        }
+      ]
     }
   },
   {

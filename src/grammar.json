@@ -318,6 +318,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "expr_group"
+        },
+        {
+          "type": "SYMBOL",
           "name": "expr_identifier"
         },
         {
@@ -407,6 +411,23 @@
     "null": {
       "type": "STRING",
       "value": "null"
+    },
+    "expr_group": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expr"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
     },
     "expr_identifier": {
       "type": "PATTERN",
