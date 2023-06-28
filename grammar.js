@@ -25,9 +25,9 @@ module.exports = grammar({
   conflicts: ($) => [[$.stmt_block, $.expr_object]],
 
   rules: {
-    program: ($) => repeat(seq($.stmt, optional(";"))),
+    program: ($) => repeat(seq($._stmt, optional(";"))),
 
-    stmt: ($) =>
+    _stmt: ($) =>
       choice(
         $.stmt_block,
         $.stmt_var_decl,
@@ -41,10 +41,15 @@ module.exports = grammar({
         $.stmt_expression
       ),
 
-    stmt_block: ($) => prec.right(seq("{", repeat($.stmt), "}")),
+    stmt_block: ($) => prec.right(seq("{", repeat($._stmt), "}")),
 
     stmt_var_decl: ($) =>
-      seq("set", field("name", $.expr_identifier), "=", field("value", $.expr)),
+      seq(
+        "set",
+        field("name", $.expr_identifier),
+        "=",
+        field("value", $._expr)
+      ),
 
     stmt_func_decl: ($) =>
       seq(
@@ -54,17 +59,19 @@ module.exports = grammar({
         field("body", $.stmt_block)
       ),
 
+    args: ($) => seq("(", optional(commaSep($._expr)), ")"),
+
     stmt_loop: ($) => seq("loop", field("body", $.stmt_block)),
 
     stmt_while: ($) =>
-      seq("while", field("condition", $.expr), field("body", $.stmt_block)),
+      seq("while", field("condition", $._expr), field("body", $.stmt_block)),
 
     stmt_for: ($) =>
       seq(
         "for",
         field("iterator", $.iterator),
         "in",
-        field("iterable", $.expr),
+        field("iterable", $._expr),
         field("body", $.stmt_block)
       ),
 
@@ -82,11 +89,11 @@ module.exports = grammar({
 
     stmt_break: () => seq("break"),
 
-    stmt_return: ($) => seq("return", field("value", $.expr)),
+    stmt_return: ($) => seq("return", field("value", $._expr)),
 
-    stmt_expression: ($) => $.expr,
+    stmt_expression: ($) => $._expr,
 
-    expr: ($) =>
+    _expr: ($) =>
       choice(
         $.expr_literal,
         $.expr_group,
@@ -113,11 +120,11 @@ module.exports = grammar({
 
     null: () => "null",
 
-    expr_group: ($) => seq("(", $.expr, ")"),
+    expr_group: ($) => seq("(", $._expr, ")"),
 
     expr_identifier: () => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
-    expr_array: ($) => seq("[", commaSep($.expr), "]"),
+    expr_array: ($) => seq("[", commaSep($._expr), "]"),
 
     expr_object: ($) => seq("{", optional(commaSep($.prop)), "}"),
 
@@ -125,13 +132,13 @@ module.exports = grammar({
       seq(
         field("name", choice($.expr_identifier, $.string)),
         ":",
-        field("value", $.expr)
+        field("value", $._expr)
       ),
 
     expr_unary: ($) =>
       prec.right(
         PREC.UNARY,
-        seq(field("oprator", choice("-", "!")), field("operand", $.expr))
+        seq(field("oprator", choice("-", "!")), field("operand", $._expr))
       ),
 
     expr_binary: ($) => {
@@ -144,14 +151,15 @@ module.exports = grammar({
         [PREC.TERM, choice("+", "-", "%")],
         [PREC.FACTOR, choice("*", "/")],
       ];
+
       return choice(
-        ...table.map(([precVal, op]) =>
+        ...table.map(([precVal, operator]) =>
           prec.left(
             precVal,
             seq(
-              field("lhs", $.expr),
-              field("operator", op),
-              field("rhs", $.expr)
+              field("lhs", $._expr),
+              field("operator", operator),
+              field("rhs", $._expr)
             )
           )
         ),
@@ -160,7 +168,7 @@ module.exports = grammar({
           seq(
             field("lhs", choice($.expr_identifier, $.expr_index, $.expr_field)),
             field("operator", "="),
-            field("rhs", $.expr)
+            field("rhs", $._expr)
           )
         )
       );
@@ -169,27 +177,25 @@ module.exports = grammar({
     expr_index: ($) =>
       prec(
         PREC.INDEX,
-        seq(field("arg", $.expr), "[", field("index", $.expr), "]")
+        seq(field("arg", $._expr), "[", field("index", $._expr), "]")
       ),
 
     expr_field: ($) =>
       prec(
         PREC.FIELD,
-        seq(field("arg", $.expr), ".", field("field", $.expr_identifier))
+        seq(field("arg", $._expr), ".", field("field", $.expr_identifier))
       ),
 
     expr_call: ($) =>
-      prec(PREC.CALL, seq(field("func", $.expr), field("args", $.args))),
-
-    args: ($) => seq("(", optional(commaSep($.expr)), ")"),
+      prec(PREC.CALL, seq(field("func", $._expr), field("args", $.args))),
 
     expr_lambda: ($) =>
-      seq("lambda", field("args", $.args), field("body", $.stmt)),
+      seq("lambda", field("args", $.args), field("body", $._stmt)),
 
     expr_if: ($) =>
       seq(
         "if",
-        field("condition", $.expr),
+        field("condition", $._expr),
         field("body", $.stmt_block),
         optional($.else_branch)
       ),
@@ -197,16 +203,21 @@ module.exports = grammar({
     else_branch: ($) => seq("else", choice($.expr_if, $.stmt_block)),
 
     expr_match: ($) =>
-      seq(
-        "match",
-        field("pattern", $.expr),
-        "{",
-        field("arms", commaSep($.match_arm)),
-        "}"
-      ),
+      seq("match", field("value", $._expr), field("body", $.match_body)),
+
+    match_body: ($) =>
+      seq("{", commaSep(choice($.match_arm, $.default_arm)), "}"),
 
     match_arm: ($) =>
-      seq(field("match", commaSep($.expr)), ":", field("body", $.stmt)),
+      seq(field("pattern", $._match_pattern), ":", field("value", $._stmt)),
+
+    _match_pattern: ($) => choice($.literal_pattern, $.or_pattern),
+
+    literal_pattern: ($) => $._expr,
+
+    or_pattern: ($) => prec.left(seq($._match_pattern, ",", $._match_pattern)),
+
+    default_arm: ($) => seq("_", ":", field("value", $._stmt)),
 
     comment: () => seq("--", /.*/),
   },

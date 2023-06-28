@@ -1,7 +1,7 @@
 (comment) @comment
 
 (string) @string
-(number) @constant
+(number) @number
 (null) @constant
 (boolean) @constant
 
@@ -11,6 +11,7 @@
   "lambda"
   "if"
   "else"
+  "match"
   "loop"
   "while"
   "for"
@@ -49,27 +50,26 @@
   "}"
 ] @punctuation.bracket
 
+(stmt_var_decl
+  name: (expr_identifier) @function
+  value: (expr_lambda)
+)
+
 (stmt_func_decl
   name: (expr_identifier) @function
   args: (args
-    (expr
-      (expr_identifier) @variable.parameter
-    )
+    (expr_identifier) @variable.parameter
   )
 )
 
 (expr_lambda
   args: (args
-    (expr
-      (expr_identifier) @variable.parameter
-    )
+    (expr_identifier) @variable.parameter
   )
 )
 
 (expr_call
-  func: (expr
-    (expr_identifier) @function
-  )
+  func: (expr_identifier) @function
 )
 
 (expr_field
@@ -77,22 +77,15 @@
 )
 
 (expr_call
-  func: (expr
-    (expr_field
-      field: (expr_identifier) @function.method
-    )
+  func: (expr_field
+    field: (expr_identifier) @function.method
   )
 )
 
-(stmt_var_decl
-  name: (expr_identifier) @function
-  value: (expr
-    (expr_lambda
-      args: (args)
-      body: (stmt
-        (stmt_block)
-      )
-    )
+(expr_object
+  (prop
+    name: (expr_identifier) @function.method
+    value: (expr_lambda)
   )
 )
 
