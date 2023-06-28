@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "icleang grammar for tree-sitter",
   "author": "LIOKA Ranarison Fiderana",
+  "license": "MIT",
   "keywords": [
     "parsing",
     "incremental",
@@ -16,6 +17,7 @@
     "tree-sitter-cli": "^0.20.8"
   },
   "scripts": {
+    "build": "tree-sitter generate",
     "test": "tree-sitter test"
   },
   "tree-sitter": [
