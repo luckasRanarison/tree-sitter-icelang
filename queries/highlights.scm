@@ -16,7 +16,6 @@
   "while"
   "for"
   "in"
-  "to"
   "continue"
   "break"
   "return"
@@ -57,6 +56,9 @@
 
 (stmt_func_decl
   name: (expr_identifier) @function
+)
+
+(stmt_func_decl
   args: (args
     (expr_identifier) @variable.parameter
   )
@@ -69,24 +71,31 @@
 )
 
 (expr_call
-  func: (expr_identifier) @function
+  func: (expr_identifier) @function.call
+)
+
+(expr_call
+  func: (expr_field
+    field: (expr_identifier) @method.call
+  )
 )
 
 (expr_field
   field: (expr_identifier) @property
 )
 
-(expr_call
-  func: (expr_field
-    field: (expr_identifier) @function.method
+(expr_object
+  (prop
+    name: (expr_identifier) @method
+    value: (expr_lambda)
   )
 )
 
 (expr_object
   (prop
-    name: (expr_identifier) @function.method
-    value: (expr_lambda)
+    name: (expr_identifier) @property
   )
 )
+
 
 (expr_identifier) @variable

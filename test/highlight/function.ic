@@ -1,0 +1,22 @@
+function hello() {
+--       ^ function
+  print("Hello world")
+--^ function.call
+}
+
+set hello = lambda() {
+--  ^ function
+  print("Hello world")
+}
+
+set obj = {
+  prop: "value",
+--^property
+  method: lambda() {
+--^method
+    return true
+  }
+}
+
+obj.method()
+--  ^method.call

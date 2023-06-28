@@ -1,0 +1,18 @@
+set string = "Hello World\n";
+--^keyword
+--           ^string
+
+set integer = 123;
+--            ^number
+
+set bool = true;
+--         ^constant
+
+set range = 0 to 5;
+--            ^operator
+
+set array = [1, 2, 3, 4];
+--          ^punctuation.bracket
+
+set undefined = null;
+--              ^constant
