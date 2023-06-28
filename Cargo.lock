@@ -51,8 +51,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "tree-sitter-icleang"
-version = "0.0.1"
+name = "tree-sitter-icelang"
+version = "0.1.0"
 dependencies = [
  "cc",
  "tree-sitter",
