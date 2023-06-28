@@ -63,13 +63,13 @@
 
 (stmt_func_decl
   args: (args
-    (expr_identifier) @variable.parameter
+    (expr_identifier) @parameter
   )
 )
 
 (expr_lambda
   args: (args
-    (expr_identifier) @variable.parameter
+    (expr_identifier) @parameter
   )
 )
 

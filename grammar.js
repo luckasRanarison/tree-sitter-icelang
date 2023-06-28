@@ -20,7 +20,7 @@ module.exports = grammar({
 
   word: ($) => $.expr_identifier,
 
-  extras: ($) => [/\s|\r?\n/, $.comment],
+  extras: ($) => [/\s|\r?\n/, ";", $.comment],
 
   conflicts: ($) => [[$.stmt_block, $.expr_object]],
 

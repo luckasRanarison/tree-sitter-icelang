@@ -1304,6 +1304,10 @@
       "value": "\\s|\\r?\\n"
     },
     {
+      "type": "STRING",
+      "value": ";"
+    },
+    {
       "type": "SYMBOL",
       "name": "comment"
     }
