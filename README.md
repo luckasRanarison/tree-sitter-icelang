@@ -1,5 +1,8 @@
 # tree-sitter-icelang
 
+[![Build/test](https://github.com/luckasRanarison/tree-sitter-icelang/actions/workflows/ci.yml/badge.svg)](https://github.com/luckasRanarison/tree-sitter-icelang/actions/workflows/ci.yml)
+[![crates.io](https://img.shields.io/crates/v/tree-sitter-icelang)](https://crates.io/crates/tree-sitter-icelang)
+
 [icelang](https://github.com/luckasRanarison/icelang) grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter)
 
 # Build
