@@ -1,7 +1,8 @@
 [package]
 name = "tree-sitter-icleang"
 description = "icleang grammar for the tree-sitter parsing library"
-version = "0.0.1"
+version = "0.1.0"
+authors = ["LIOKA Ranarison Fiderana <luckasranarison@gmail.com>"]
 keywords = ["incremental", "parsing", "icleang"]
 categories = ["parsing", "text-editors"]
 repository = "https://github.com/tree-sitter/tree-sitter-icleang"
@@ -9,12 +10,7 @@ edition = "2018"
 license = "MIT"
 
 build = "bindings/rust/build.rs"
-include = [
-  "bindings/rust/*",
-  "grammar.js",
-  "queries/*",
-  "src/*",
-]
+include = ["bindings/rust/*", "grammar.js", "queries/*", "src/*"]
 
 [lib]
 path = "bindings/rust/lib.rs"
