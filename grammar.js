@@ -16,7 +16,7 @@ const PREC = {
 const commaSep = (rule) => repeat(seq(rule, optional(",")));
 
 module.exports = grammar({
-  name: "icleang",
+  name: "icelang",
 
   word: ($) => $.expr_identifier,
 
