@@ -1,8 +1,9 @@
 {
   "name": "tree-sitter-icelang",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "icleang grammar for tree-sitter",
   "author": "LIOKA Ranarison Fiderana",
+  "repository": "https://github.com/luckasRanarison/tree-sitter-icelang",
   "license": "MIT",
   "keywords": [
     "parsing",
