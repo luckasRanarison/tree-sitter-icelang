@@ -197,10 +197,10 @@ module.exports = grammar({
         "if",
         field("condition", $._expr),
         field("body", $.stmt_block),
-        optional($.else_branch)
+        optional(field("else_branch", $._else_branch))
       ),
 
-    else_branch: ($) => seq("else", choice($.expr_if, $.stmt_block)),
+    _else_branch: ($) => seq("else", choice($.expr_if, $.stmt_block)),
 
     expr_match: ($) =>
       seq("match", field("value", $._expr), field("body", $.match_body)),

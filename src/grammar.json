@@ -1097,8 +1097,12 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "else_branch"
+              "type": "FIELD",
+              "name": "else_branch",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_else_branch"
+              }
             },
             {
               "type": "BLANK"
@@ -1107,7 +1111,7 @@
         }
       ]
     },
-    "else_branch": {
+    "_else_branch": {
       "type": "SEQ",
       "members": [
         {
