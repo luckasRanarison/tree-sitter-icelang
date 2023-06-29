@@ -97,5 +97,16 @@
   )
 )
 
+(expr_binary
+  lhs: (expr_identifier) @function
+  rhs: (expr_lambda)
+)
+
+(expr_binary
+  lhs: (expr_field
+    field: (expr_identifier) @method
+  )
+  rhs: (expr_lambda)
+)
 
 (expr_identifier) @variable
