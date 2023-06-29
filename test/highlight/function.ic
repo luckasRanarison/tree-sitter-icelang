@@ -4,6 +4,11 @@ function hello() {
 --^ function.call
 }
 
+function print_stuff(param) {
+--                   ^parameter              
+  print(param)
+}
+
 set hello = lambda() {
 --  ^ function
   print("Hello world")

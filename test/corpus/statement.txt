@@ -1,0 +1,67 @@
+=================================================
+function declaration
+=================================================
+
+function hello(message, name) {
+  print(message, name)
+}
+
+---
+
+(program
+  (stmt_func_decl
+    name: (expr_identifier)
+    args: (args
+      (expr_identifier)
+      (expr_identifier))
+    body: (stmt_block
+      (stmt_expression
+        (expr_call
+          func: (expr_identifier)
+          args: (args
+            (expr_identifier)
+            (expr_identifier)))))))
+
+=================================================
+for statement (v)
+=================================================
+
+for value in iterable {
+  do_stuff()
+}
+
+---
+
+(program
+  (stmt_for
+    iterator: (iterator
+      (expr_identifier))
+    iterable: (expr_identifier)
+    body: (stmt_block
+      (stmt_expression
+        (expr_call
+          func: (expr_identifier)
+          args: (args))))))
+
+
+=================================================
+for statement (k, v)
+=================================================
+
+for key, value in iterable {
+  do_stuff()
+}
+
+---
+
+(program
+  (stmt_for
+    iterator: (iterator
+      key: (expr_identifier)
+      value: (expr_identifier))
+    iterable: (expr_identifier)
+    body: (stmt_block
+      (stmt_expression
+        (expr_call
+          func: (expr_identifier)
+          args: (args))))))

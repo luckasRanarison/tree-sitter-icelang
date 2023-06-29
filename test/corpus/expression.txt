@@ -1,0 +1,121 @@
+=================================================
+basics 
+=================================================
+
+set object = {
+  prop: "value",
+  "list": [1, 2.0, true, null]
+  method: lambda(a, b) a * b 
+}
+
+---
+
+(program
+  (stmt_var_decl
+    name: (expr_identifier)
+    value: (expr_object
+      (prop
+        name: (expr_identifier)
+        value: (expr_literal
+          (string)))
+      (prop
+        name: (string)
+        value: (expr_array
+          (expr_literal
+            (number))
+          (expr_literal
+            (number))
+          (expr_literal
+            (boolean))
+          (expr_literal
+            (null))))
+      (prop
+        name: (expr_identifier)
+        value: (expr_lambda
+          args: (args
+            (expr_identifier)
+            (expr_identifier))
+          body: (stmt_expression
+            (expr_binary
+            lhs: (expr_identifier)
+            rhs: (expr_identifier))))))))
+
+=================================================
+if expression 
+=================================================
+
+if (a > b) {
+  print("a")
+} else {
+  print("b")
+}
+
+---
+
+(program
+  (stmt_expression
+    (expr_if
+      condition: (expr_group
+        (expr_binary
+          lhs: (expr_identifier)
+          rhs: (expr_identifier)))
+      body: (stmt_block
+        (stmt_expression
+          (expr_call
+            func: (expr_identifier)
+            args: (args
+              (expr_literal
+                (string))))))
+      else_branch: (stmt_block
+        (stmt_expression
+          (expr_call
+            func: (expr_identifier)
+            args: (args
+              (expr_literal
+                (string)))))))))
+
+=================================================
+match expression 
+=================================================
+
+match a {
+  0, null: false,
+  true: true,
+  _: { 
+    print("default")
+  }
+}
+
+---
+
+(program
+  (stmt_expression
+    (expr_match
+      value: (expr_identifier)
+      body: (match_body
+        (match_arm
+          pattern: (or_pattern
+            (literal_pattern
+              (expr_literal
+                (number)))
+            (literal_pattern
+              (expr_literal
+                (null))))
+          value: (stmt_expression
+            (expr_literal
+              (boolean))))
+        (match_arm
+          pattern: (literal_pattern
+            (expr_literal
+              (boolean)))
+          value: (stmt_expression
+            (expr_literal
+              (boolean))))
+        (default_arm
+          value: (stmt_block
+            (stmt_expression
+              (expr_call
+                func: (expr_identifier)
+                args: (args
+                  (expr_literal
+                    (string)))))))))))
