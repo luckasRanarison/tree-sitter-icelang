@@ -14,7 +14,7 @@ const PREC = {
 };
 
 const commaSep = (rule) =>
-  seq(rule, choice(optional(","), repeat(seq(",", rule))));
+  seq(rule, seq(repeat(seq(",", rule)), optional(",")));
 
 module.exports = grammar({
   name: "icelang",
