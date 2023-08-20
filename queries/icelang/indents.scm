@@ -1,6 +1,6 @@
 [
   (args)
-  (stmt_block)  
+  (stmt_block)
   (expr_object)
   (expr_array)
   (match_body)
@@ -11,8 +11,8 @@
 (expr_object "}" @indent.end)
 (expr_array "]" @indent.end)
 
-[ 
-  ")" 
-  "}" 
-  "]" 
+[
+  ")"
+  "}"
+  "]"
 ] @indent.branch
