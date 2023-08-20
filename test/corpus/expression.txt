@@ -4,7 +4,7 @@ basics
 
 set object = {
   prop: "value",
-  "list": [1, 2.0, true, null]
+  "list": [1, 2.0, true, null],
   method: lambda(a, b) a * b 
 }
 

@@ -13,7 +13,8 @@ const PREC = {
   INDEX: 11,
 };
 
-const commaSep = (rule) => repeat(seq(rule, optional(",")));
+const commaSep = (rule) =>
+  seq(rule, choice(optional(","), repeat(seq(",", rule))));
 
 module.exports = grammar({
   name: "icelang",
