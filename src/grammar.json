@@ -458,8 +458,43 @@
       "value": "[0-9]+(\\.[0-9]+)?"
     },
     "string": {
-      "type": "PATTERN",
-      "value": "\"[^\"]*\"|'[^']*'"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "\""
+            },
+            {
+              "type": "PATTERN",
+              "value": "[^\"]*"
+            },
+            {
+              "type": "STRING",
+              "value": "\""
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "'"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[^']*"
+            },
+            {
+              "type": "STRING",
+              "value": "'"
+            }
+          ]
+        }
+      ]
     },
     "boolean": {
       "type": "CHOICE",

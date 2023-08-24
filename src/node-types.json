@@ -1861,6 +1861,11 @@
     }
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "!",
     "named": false
   },
@@ -1869,7 +1874,15 @@
     "named": false
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
     "type": "%",
+    "named": false
+  },
+  {
+    "type": "'",
     "named": false
   },
   {
@@ -2023,10 +2036,6 @@
   {
     "type": "set",
     "named": false
-  },
-  {
-    "type": "string",
-    "named": true
   },
   {
     "type": "to",

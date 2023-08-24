@@ -116,7 +116,7 @@ module.exports = grammar({
 
     number: () => /[0-9]+(\.[0-9]+)?/,
 
-    string: () => /"[^"]*"|'[^']*'/,
+    string: () => choice(seq('"', /[^"]*/, '"'), seq("'", /[^']*/, "'")),
 
     boolean: () => choice("true", "false"),
 
