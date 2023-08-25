@@ -5,6 +5,8 @@
 (null) @constant
 (boolean) @constant
 
+(self) @variable.builtin
+
 [
   "set"
   "function"

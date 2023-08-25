@@ -112,7 +112,7 @@ module.exports = grammar({
         $.expr_lambda
       ),
 
-    expr_literal: ($) => choice($.number, $.string, $.boolean, $.null),
+    expr_literal: ($) => choice($.number, $.string, $.boolean, $.null, $.self),
 
     number: () => /[0-9]+(\.[0-9]+)?/,
 
@@ -121,6 +121,8 @@ module.exports = grammar({
     boolean: () => choice("true", "false"),
 
     null: () => "null",
+
+    self: () => "self",
 
     expr_group: ($) => seq("(", $._expr, ")"),
 
@@ -169,7 +171,7 @@ module.exports = grammar({
           PREC.ASSIGN,
           seq(
             field("lhs", choice($.expr_identifier, $.expr_index, $.expr_field)),
-            field("operator", "="),
+            field("operator", choice("=", "+=", "-=", "*=", "/=", "%=")),
             field("rhs", $._expr)
           )
         )

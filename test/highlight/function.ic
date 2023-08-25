@@ -19,7 +19,8 @@ set obj = {
 --^property
   method: lambda() {
 --^method
-    return true
+    return self.prop
+         --^variable.builtin
   }
 }
 

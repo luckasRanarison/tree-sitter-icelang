@@ -450,6 +450,10 @@
         {
           "type": "SYMBOL",
           "name": "null"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "self"
         }
       ]
     },
@@ -512,6 +516,10 @@
     "null": {
       "type": "STRING",
       "value": "null"
+    },
+    "self": {
+      "type": "STRING",
+      "value": "self"
     },
     "expr_group": {
       "type": "SEQ",
@@ -1039,8 +1047,33 @@
                 "type": "FIELD",
                 "name": "operator",
                 "content": {
-                  "type": "STRING",
-                  "value": "="
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "+="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "-="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "*="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "/="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "%="
+                    }
+                  ]
                 }
               },
               {
